@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: victorursan/delivery-postgres:v1
+    command: -c 'shared_buffers=256MB' -c 'max_connections=200'
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+
+  web:
+    image: victorursan/delivery-restaurants-api:1.0.0
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
